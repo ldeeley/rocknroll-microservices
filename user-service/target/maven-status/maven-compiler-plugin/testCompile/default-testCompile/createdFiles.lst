@@ -1,0 +1,9 @@
+com\example\usergroup\service\UserGroupServiceImplTest.class
+com\example\user\controller\UserControllerTest.class
+com\example\user\utils\Utils.class
+com\example\user\service\UserServiceImplTest.class
+com\example\user\service\BannedUsersClientTest.class
+com\example\user\BaseTestContainer.class
+com\example\user\home\HomeControllerTest.class
+com\example\user\repository\UserRepositoryTest.class
+com\example\user\controller\UserWebControllerTest.class
