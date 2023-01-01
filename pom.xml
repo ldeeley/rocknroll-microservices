@@ -7,17 +7,20 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <groupId>org.example</groupId>
   <artifactId>rocknroll-microservices</artifactId>
-  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
   <modules>
     <module>user-service</module>
       <module>album-service</module>
+      <module>playlist-service</module>
+      <module>discoveryServer</module>
   </modules>
 
   <name>rocknroll-microservices</name>
@@ -28,6 +31,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+      <spring-cloud.version>2022.0.0</spring-cloud.version>
+      <java.version>17</java.version>
   </properties>
 
   <dependencyManagement>
@@ -39,17 +44,15 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>2022.0.0</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
     </dependencies>
   </dependencyManagement>
-
-<!--  <dependencies>-->
-<!--    <dependency>-->
-<!--      <groupId>junit</groupId>-->
-<!--      <artifactId>junit</artifactId>-->
-<!--      <version>4.11</version>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>-->
-<!--  </dependencies>-->
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
