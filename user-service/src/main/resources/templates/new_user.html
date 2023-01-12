@@ -13,7 +13,7 @@
             <hr>
             <h2> Save User</h2>
 
-            <form action="/static" th:action="@{/user/newUserForm}" th:object="${usereq}" method="post">
+            <form action="/static" th:action="@{/user/newUserForm}" th:object="${userreq}" method="post">
                 <p>name : <input th:field="*{name}">
                     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="alert-danger"></span>
                 </p>

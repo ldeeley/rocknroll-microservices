@@ -1,5 +1,6 @@
 package org.example.albuminventoryservice;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -9,6 +10,8 @@ import org.modelmapper.ModelMapper;
 @EnableDiscoveryClient
 @SpringBootApplication
 public class albumInventoryService {
+
+
 
     public static void main(String[] args) {
         SpringApplication.run(albumInventoryService.class, args);

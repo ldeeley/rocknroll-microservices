@@ -84,8 +84,10 @@ class UserWebControllerTest {
                         .param("name","lester")
                         .param("mobile","abc")
                         .param("email","lester@google.com"))
-                .andExpect(model().attributeHasFieldErrors("userdto"))
-                .andExpect(MockMvcResultMatchers.view().name("/user_ThymeLeafTemplates/update_user"));
+                .andExpect(MockMvcResultMatchers.model().errorCount(1))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("userdto"))
+                .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("updateUserFormDTO","mobile"));
+
     }
 
     @Test

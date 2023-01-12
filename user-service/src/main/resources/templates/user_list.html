@@ -70,7 +70,7 @@
                         </li>
                         <a class="page-link" th:href="@{${pageUrlPrefix} + 6 }">...</a>
                         <li th:class="${currentPage !=i ? 'page-item' : 'page-item-disabled'}"
-                            th:each="i : ${#numbers.sequence(totalPages-4,totalPages)}">
+                            th:each="i : ${#numbers.sequence(totalPages - 4,totalPages)}">
                             <a class="page-link" th:href="@{${pageUrlPrefix} + ${i}}"> [[${i}]]</a>
                         </li>
                     </th:block>

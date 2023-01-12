@@ -1,6 +1,7 @@
 package org.example.usergroup.controller;
 
 
+import jakarta.validation.Valid;
 import org.example.user.dto.APIUserResponseDTO;
 import org.example.user.model.User;
 import org.example.user.service.UserServiceImpl;
@@ -17,7 +18,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +36,8 @@ public class UserGroupWebController {
     UserGroupServiceImpl userGroupService;
 
     public static final int pageSize = 10;
-    private static final String GROUP_THYMELEAF_TEMPLATES = "/group_ThymeLeafTemplates/";
+    private static final String GROUP_THYMELEAF_TEMPLATES = "";
+//    private static final String GROUP_THYMELEAF_TEMPLATES = "/group_ThymeLeafTemplates/";
 
     @GetMapping("/")
      public String viewUserGroupPage(Model model){

@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/playlist-service/pom.xml" />
         <option value="$PROJECT_DIR$/DiscoveryServer/pom.xml" />
         <option value="$PROJECT_DIR$/api-gateway-service/pom.xml" />
+        <option value="$PROJECT_DIR$/configServer/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

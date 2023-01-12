@@ -8,11 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="DiscoveryServer" />
+        <module name="api-gateway-service" />
+        <module name="configServer" />
+        <module name="album-service" />
         <module name="user-service" />
         <module name="playlist-service" />
         <module name="discoveryServer" />
-        <module name="api-gateway-service" />
-        <module name="album-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,6 +25,7 @@
       <module name="DiscoveryServer" options="-parameters" />
       <module name="album-service" options="-parameters" />
       <module name="api-gateway-service" options="-parameters" />
+      <module name="configServer" options="-parameters" />
       <module name="discoveryServer" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="playlist-service" options="-parameters" />

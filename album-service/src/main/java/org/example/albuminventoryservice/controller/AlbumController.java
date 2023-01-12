@@ -4,6 +4,7 @@ import org.example.albuminventoryservice.dto.AlbumResponseDTO;
 import org.example.albuminventoryservice.exception.AlbumNotFoundException;
 import org.example.albuminventoryservice.service.AlbumServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class AlbumController {
 
     private final AlbumServiceImpl albumServiceImpl;
+    @Value("${my.greeting}")
+    private String msg;
 
     @GetMapping("/{album-code}/instock")
     @ResponseStatus(HttpStatus.OK)
@@ -25,6 +28,9 @@ public class AlbumController {
         return albumServiceImpl.getAlbum(albumCode);
     }
 
-
+    @GetMapping("/msg")
+    public void myMsg(){
+        System.out.println(msg);
+    }
 
 }

@@ -1,6 +1,7 @@
 package org.example.user.controller;
 
 
+import jakarta.validation.Valid;
 import org.example.user.dto.APIUserRequestDTO;
 import org.example.user.dto.APIUserResponseDTO;
 import org.example.user.dto.UpdateUserFormDTO;
@@ -11,10 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.util.List;
 
 
@@ -32,17 +34,20 @@ public class UserWebController {
 
     public static final int PAGE_SIZE = 10;
     private static final String USER_HOME = "redirect:/user/";
-    private static final String USER_THYMELEAF_TEMPLATES = "/user_ThymeLeafTemplates/";
+//    private static final String USER_THYMELEAF_TEMPLATES = "/user_ThymeLeafTemplates/";
+    private static final String USER_THYMELEAF_TEMPLATES = "";
 
     @GetMapping("/newUserForm")
     public String newUserForm(@ModelAttribute("userreq") APIUserRequestDTO apiUserRequestDTO) {
+        apiUserRequestDTO.setName("Lester");
         return USER_THYMELEAF_TEMPLATES+"new_user";
     }
 
     @PostMapping("/newUserForm")
     public String submitForm(@Valid @ModelAttribute("userreq") APIUserRequestDTO apiUserRequestDTO,
                              BindingResult bindingResult,
-                             RedirectAttributes ra) {
+                             RedirectAttributes ra,
+                             Model model) {
         if (bindingResult.hasErrors()) {
             return USER_THYMELEAF_TEMPLATES+"new_user";
         }
@@ -52,11 +57,13 @@ public class UserWebController {
     }
 
     @GetMapping("/showFormForUpdate/{id}")
-    public String showFormForUpdate(@PathVariable (value = "id") Integer id,Model model) throws UserNotFoundException {
+    public String showFormForUpdate(@PathVariable (value = "id") Integer id,
+                                    @ModelAttribute("userdto") APIUserRequestDTO apiUserRequestDTO,
+                                    Model model) throws UserNotFoundException {
         try {
             APIUserResponseDTO userResponse = userService.findUserById(id);
             model.addAttribute("userdto",userResponse);
-            model.addAttribute("id",id);
+//            model.addAttribute("id",id);
             return USER_THYMELEAF_TEMPLATES+"update_user";
         } catch (UserNotFoundException e){
             throw new UserNotFoundException("User not found in database : "+id);
@@ -64,19 +71,23 @@ public class UserWebController {
     }
 
     @PostMapping("/saveUser")
-    public String register(@Valid @ModelAttribute("userdto") UpdateUserFormDTO updateUserFormDTO,
+    public String register(@Valid UpdateUserFormDTO userdto,
                            BindingResult bindingResult,
+                           Errors errors,
+                           @ModelAttribute("userdto") UpdateUserFormDTO myUpdateUserFormDTO,
                            RedirectAttributes ra) {
-        if (bindingResult.hasErrors()) {
+         if (errors.hasErrors()) {
+             List<ObjectError> errorList = bindingResult.getAllErrors();
           return USER_THYMELEAF_TEMPLATES+"update_user";
         }
 
             APIUserRequestDTO apiUserRequestDTO = APIUserRequestDTO.builder()
-                    .name(updateUserFormDTO.getName())
-                    .mobile(updateUserFormDTO.getMobile())
-                    .email(updateUserFormDTO.getEmail())
+                    .name(userdto.getName())
+                    .mobile(userdto.getMobile())
+                    .email(userdto.getEmail())
                     .build();
-            userService.updateUserById(apiUserRequestDTO, updateUserFormDTO.getUserId());
+            userService.updateUserById(apiUserRequestDTO, userdto.getUserId());
+
         ra.addFlashAttribute("userreq", apiUserRequestDTO);
         return USER_HOME;
     }
