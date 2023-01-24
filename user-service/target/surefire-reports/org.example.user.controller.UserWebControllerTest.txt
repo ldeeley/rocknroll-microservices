@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: org.example.user.controller.UserWebControllerTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 10.338 s <<< FAILURE! - in org.example.user.controller.UserWebControllerTest
+checkInvalidUserFormDataRejected  Time elapsed: 1.05 s  <<< ERROR!
+jakarta.servlet.ServletException: Request processing failed: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/user_ThymeLeafTemplates/update_user], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.controller.UserWebControllerTest.checkInvalidUserFormDataRejected(UserWebControllerTest.java:83)
+Caused by: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/user_ThymeLeafTemplates/update_user], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.controller.UserWebControllerTest.checkInvalidUserFormDataRejected(UserWebControllerTest.java:83)
+
+checkPageOfUsers  Time elapsed: 0.081 s  <<< ERROR!
+jakarta.servlet.ServletException: Request processing failed: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/user_ThymeLeafTemplates/user_list], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.controller.UserWebControllerTest.checkPageOfUsers(UserWebControllerTest.java:171)
+Caused by: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/user_ThymeLeafTemplates/user_list], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.controller.UserWebControllerTest.checkPageOfUsers(UserWebControllerTest.java:171)
+
+newUserForm  Time elapsed: 0.032 s  <<< ERROR!
+jakarta.servlet.ServletException: Request processing failed: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/user_ThymeLeafTemplates/new_user], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.controller.UserWebControllerTest.newUserForm(UserWebControllerTest.java:46)
+Caused by: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/user_ThymeLeafTemplates/new_user], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.controller.UserWebControllerTest.newUserForm(UserWebControllerTest.java:46)
+
+checkCallToUserUpdateForm  Time elapsed: 0.214 s  <<< ERROR!
+jakarta.servlet.ServletException: Request processing failed: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/user_ThymeLeafTemplates/update_user], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.controller.UserWebControllerTest.checkCallToUserUpdateForm(UserWebControllerTest.java:123)
+Caused by: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/user_ThymeLeafTemplates/update_user], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.controller.UserWebControllerTest.checkCallToUserUpdateForm(UserWebControllerTest.java:123)
+

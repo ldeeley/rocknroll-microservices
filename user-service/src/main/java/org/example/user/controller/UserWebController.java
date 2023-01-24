@@ -116,7 +116,7 @@ public class UserWebController {
         int endCount = startCount + PAGE_SIZE -1;
         model.addAttribute("endCount",endCount);
 
-        return USER_THYMELEAF_TEMPLATES+"user_list";
+        return "user_list";
     }
 
 }

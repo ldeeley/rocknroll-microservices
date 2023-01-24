@@ -29,8 +29,8 @@ public class AlbumController {
     }
 
     @GetMapping("/msg")
-    public void myMsg(){
-        System.out.println(msg);
+    public String myMsg(){
+        return "Hello from Album Controller " + msg;
     }
 
 }

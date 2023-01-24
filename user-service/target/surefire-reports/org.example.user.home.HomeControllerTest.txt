@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: org.example.user.home.HomeControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.802 s <<< FAILURE! - in org.example.user.home.HomeControllerTest
+getDashboardView  Time elapsed: 0.302 s  <<< ERROR!
+jakarta.servlet.ServletException: Request processing failed: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [index], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.home.HomeControllerTest.getDashboardView(HomeControllerTest.java:20)
+Caused by: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [index], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.example.user.home.HomeControllerTest.getDashboardView(HomeControllerTest.java:20)
+

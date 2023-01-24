@@ -1,0 +1,9 @@
+org\example\albuminventoryservice\dto\AlbumResponseDTO.class
+org\example\albuminventoryservice\albumInventoryService.class
+org\example\albuminventoryservice\model\Album.class
+org\example\albuminventoryservice\service\AlbumServiceImpl.class
+org\example\albuminventoryservice\exception\AlbumNotFoundException.class
+org\example\albuminventoryservice\controller\AlbumController.class
+org\example\albuminventoryservice\exception\GlobalExceptionHandler.class
+org\example\albuminventoryservice\service\AlbumService.class
+org\example\albuminventoryservice\repository\AlbumRepository.class
