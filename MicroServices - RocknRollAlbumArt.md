@@ -6,12 +6,15 @@ Objectives
 - Deploy project to AWS using Code Pipelines/ Docker containers
 - Demonstrate Unit Testing, Integration Testing
 - Provide documentation - SWAGGER
+- Business User Case - trivial (intention to demonstrate Spring component technology)
 
 Tools/Technologies
 * Java 17
 * Spring Boot 3.0 - Starters
+
+
 * Spring Cloud
-* Intellij
+* Intellij - Ultimate
 * Maven - Multi-Module
 * GitHub
 * SonarLint
@@ -20,11 +23,46 @@ Tools/Technologies
 * MySQL
 * Lombok
 * POSTMAN
+* Bootstrap 5.0
+* Thymeleaf
+* Junit Jupiter/Mockito/Test Containers
 
 
 
-## Design Patterns
-#### MVC
+## Microservices Design Patterns
+#### Core Development Patterns
+Service granularity—How do you approach decomposing a business domain down into microservices so that each microservice has the right level of responsibility?
+
+Communication protocols—How will developers communicate with your service?
+
+Interface design—What’s the best way to design the actual service interfaces that developers are going to use to call your service? How do you structure your services?
+
+Configuration management of service—How do you manage the configuration of your microservice so that it moves between different environments in the cloud?
+
+Event processing between services—How do you decouple your microservice using events so that you minimize hardcoded dependencies between your services and increase the resiliency of your application?
+
+
+#### Routing Patterns
+
+Service discovery—With service discovery and its key feature, service registry, you can make your microservice discoverable so client applications can find them without having the location of the service hardcoded into their application.
+
+Service routing—With an API Gateway, you can provide a single entry point for all of your services so that security policies and routing rules are applied uniformly to multiple services and service instances in your microservices applications. 
+
+#### Client Resiliency Patterns
+
+Because microservice architectures are highly distributed, you have to be extremely sensitive in how you prevent a problem in a single service (ors ervice instance) from cascading up and out to the consumers of the service.
+
+* Client-side load balancing
+* Circuit breaker pattern
+* Fallback Pattern
+* Bulkhead pattern
+
+
+#### Security Patterns
+#### Logging & Tracing Patterns
+#### Application Metrics Patterns
+#### Build & Deployment Patterns
+
 
 
 ## Spring Boot Starters
@@ -61,7 +99,7 @@ Tools/Technologies
 #### MicroServices 101
 Flexible, Scalable, Resilient
 
-
+![](Micorservices%20Guidelines.jpg)
 
 # GLOSSARY
 
