@@ -8,6 +8,8 @@ Objectives
 - Provide documentation - SWAGGER
 - Business User Case - trivial (intention to demonstrate Spring component technology)
 
+![](rocknroll%20-%20microservices.jpg)
+
 Tools/Technologies
 * Java 17
 * Spring Boot 3.0 - Starters
