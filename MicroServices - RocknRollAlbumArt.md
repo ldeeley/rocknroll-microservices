@@ -2,7 +2,7 @@
 
 Objectives
 - To build a MicroServices application using Spring Boot/Spring Cloud technologies
-- Follow best practice MicroServices Design Patterns - The Twelve-Factor App
+- Follow best practice MicroServices Design Patterns - The Twelve-Factor App - Heroku's
 - Deploy project to AWS using Code Pipelines/ Docker containers
 - Demonstrate Unit Testing, Integration Testing
 - Provide documentation - SWAGGER
@@ -15,7 +15,10 @@ Tools/Technologies
 * Spring Boot 3.0 - Starters
 
 
-* Spring Cloud
+* Spring Cloud - Release Train 2022.0.0 - Kilburn
+
+Spring Cloud is a collection of tools that wraps the work of open source companies such as VMware, HashiCorp, and Netflix in delivery patterns.
+
 * Intellij - Ultimate
 * Maven - Multi-Module
 * GitHub
@@ -46,23 +49,53 @@ Event processing between services—How do you decouple your microservice using 
 
 #### Routing Patterns
 
-Service discovery—With service discovery and its key feature, service registry, you can make your microservice discoverable so client applications can find them without having the location of the service hardcoded into their application.
+Service discovery—With service discovery and its key feature, service registry, you can make your microservice discoverable so client applications can find them without having the location of the service hardcoded into their application. (Eureka vs. Consul/Zookeeper)
 
 Service routing—With an API Gateway, you can provide a single entry point for all of your services so that security policies and routing rules are applied uniformly to multiple services and service instances in your microservices applications. 
 
-#### Client Resiliency Patterns
+#### Client Resiliency/Load Balancing Patterns
 
 Because microservice architectures are highly distributed, you have to be extremely sensitive in how you prevent a problem in a single service (ors ervice instance) from cascading up and out to the consumers of the service.
 
-* Client-side load balancing
-* Circuit breaker pattern
-* Fallback Pattern
-* Bulkhead pattern
+* Client-side load balancing - Client-side load balancing—How you cache the location of your service instances on the service so that calls to multiple instances of a microservice are load balanced to all the health instances of that microservice.
+
+* Circuit breaker pattern — How you prevent a client from continuing to call a service that’s failing or suffering performance problems. When a service is running slowly, it consumes resources on the client calling it. You want these microservice calls to fail fast so that the calling client can quickly respond and take appropriate action.
+
+* Fallback pattern — When a service call fails, how you provide a “plug-in” mechanism that allows the service client to try to carry out its work through alternative means other than the microservice being called.
+
+* Bulkhead pattern — Microservice applications use multiple distributed resources to carry out their work. This pattern refers to how you compartmentalize these calls so that the misbehavior of one service call doesn’t negatively impact the rest of the application.
+
 
 
 #### Security Patterns
+
+Authentication—How you determine the service client calling the service is who they say they are.
+
+
+Authorization—How you determine whether the service client calling a
+microservice is allowed to undertake the action they’re trying to take.
+
+Credential management and propagation—How you prevent a service client from constantly having to present their credentials for service calls involved in a transaction.
+
+OAuth 2.0
+
+
 #### Logging & Tracing Patterns
+
+Log correlation - Spring Cloud Sleuth
+
+Log aggregation - Spring Cloud Sleuth (ELK Stack)
+
+Tracing - Spring Cloud Sleuth/Zipkin
+
 #### Application Metrics Patterns
+Metrics — How you create critical information about the health of your application and how to expose those metrics
+
+Metrics service—Where you can store and query the application metrics
+
+Metrics visualization suite—Where you can visualize business-related time data for the application and infrastructure
+
+
 #### Build & Deployment Patterns
 
 
@@ -97,9 +130,18 @@ Because microservice architectures are highly distributed, you have to be extrem
 
 ###### Annotations
 
+#### Spring Cloud Stream - rabbitmq/kafka
+
+###### Annotations
+
+#### Spring Cloud Sleuth - ElasticSearch/Logstash/Kibana
+
+###### Annotations
 
 #### MicroServices 101
 Flexible, Scalable, Resilient
+The more distributed a system is, the more places it can fail.
+
 
 ![](Micorservices%20Guidelines.jpg)
 
