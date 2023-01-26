@@ -3,6 +3,7 @@
 Objectives
 - To build a MicroServices application using Spring Boot/Spring Cloud technologies
 - Follow best practice MicroServices Design Patterns - The Twelve-Factor App - Heroku's
+- Java SOLID principles
 - Deploy project to AWS using Code Pipelines/ Docker containers
 - Demonstrate Unit Testing, Integration Testing
 - Provide documentation - SWAGGER
@@ -10,7 +11,7 @@ Objectives
 
 ![](rocknroll%20-%20microservices.jpg)
 
-Tools/Technologies
+## Tools/Technologies
 * Java 17
 * Spring Boot 3.0 - Starters
 
@@ -23,7 +24,7 @@ Spring Cloud is a collection of tools that wraps the work of open source compani
 * Maven - Multi-Module
 * GitHub
 * SonarLint
-* Docker
+* Docker, Docker + JIB
 * CI/CD - AWS - Code Commit/Code Pipeline/EC2/CaaS
 * MySQL
 * Lombok
@@ -170,9 +171,12 @@ In my application, I've used <mark>MySQL as the backing service to provide persi
 
 Spring JPA makes the code quite agnostic to the actual database provider. I only need to define a repository which provides all standard operations:
 
+```java
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 }
+```
+
 
 This is not dependent on MySQL directly. Spring detects the MySQL driver on the classpath and provides a MySQL-specific implementation of this interface dynamically. Moreover, it pulls other details from configurations directly.
 
@@ -226,6 +230,116 @@ A twelve-factor app, however, separates itself from log generation and its proce
 Logging for this app implemented with ElasticSearch/Logstash/Kibana
 
 ### 12. Admin Processes
+
+## CHEATSHEETS
+
+<mark>### Docker Cheatsheet</mark>
+
+A Docker container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
+
+![Docker](docker.jpg)
+
+Docker has a CLI and a background Daemon
+
+Docker Image - A blueprint/template  for the instantiation of a Docker Container
+
+The container Image defines the content of the Container - like O/S, runtimes, application
+
+```bash
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+leste@AQUARIUS MINGW64 ~
+$
+```
+
+<mark>docker ps</mark> - to list the containers that are currently running (none)
+
+Pull a 'base' image from DockerHub (an image registry/also AWS) and add necessary components to build your own Image from which to instantiate a Container
+
+```bash
+leste@AQUARIUS MINGW64 ~
+$ docker pull alpine
+Using default tag: latest
+latest: Pulling from library/alpine
+8921db27df28: Pulling fs layer
+8921db27df28: Verifying Checksum
+8921db27df28: Download complete
+8921db27df28: Pull complete
+Digest: sha256:f271e74b17ced29b915d351685fd4644785c6d1559dd1f2d4189a5e851ef753a
+Status: Downloaded newer image for alpine:latest
+docker.io/library/alpine:latest
+
+leste@AQUARIUS MINGW64 ~
+$
+```
+<mark>docker pull</mark> - This grabs an Image from DockerHub and pulls it down to your machine. DockerHub is default and the Tag=Latest is also default. Apline is a LINUX container.
+
+
+```bash
+leste@AQUARIUS MINGW64 ~
+$ docker images
+REPOSITORY            TAG       IMAGE ID       CREATED         SIZE
+alpine                latest    042a816809aa   2 weeks ago     7.05MB
+mysql                 latest    43fcfca0776d   4 months ago    449MB
+testcontainers/ryuk   0.3.3     64f4b02dc986   15 months ago   12MB
+
+leste@AQUARIUS MINGW64 ~
+$
+```
+<mark>docker images</mark> - To list all of the images on your local machine
+
+The docker container will end when the process running inside it stops.
+
+```bash
+leste@AQUARIUS MINGW64 ~
+$ winpty docker run -it alpine
+/ # ls
+bin    etc    lib    mnt    proc   run    srv    tmp    var
+dev    home   media  opt    root   sbin   sys    usr
+/ #
+```
+to run container and use it interactively use the flag -it. Use 'exit' to leave.
+
+```bash
+leste@AQUARIUS MINGW64 ~
+$ winpty docker run -it openjdk bash
+Unable to find image 'openjdk:latest' locally
+latest: Pulling from library/openjdk
+2c57acc5afca: Pull complete
+2f8fb8780af5: Pull complete
+91f16df76a51: Pull complete
+Digest: sha256:506f42afce5070bf59251966e30281195b14a46f6147e06e212e13a30ccd6b45
+Status: Downloaded newer image for openjdk:latest
+bash-4.4# java -version
+openjdk version "18.0.2.1" 2022-08-18
+OpenJDK Runtime Environment (build 18.0.2.1+1-1)
+OpenJDK 64-Bit Server VM (build 18.0.2.1+1-1, mixed mode, sharing)
+bash-4.4#
+```
+
+running a Java container interactively. Downloads first because not available locally
+
+
+
+
+
+
+
+
+
+
+
+
+<mark>### GIT Cheatsheet</mark>
+
+
+
+<mark>### Maven CheatSheet</mark>
+
+
+
+
 
 
 
