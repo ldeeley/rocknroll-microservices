@@ -20,11 +20,11 @@ Objectives
 
 Spring Cloud is a collection of tools that wraps the work of open source companies such as VMware, HashiCorp, and Netflix in delivery patterns.
 
-* Intellij - Ultimate
+* Intellij IDE - Ultimate
 * Maven - Multi-Module
-* GitHub
+* GitHub/AWS Code Commit
 * SonarLint
-* Docker, Docker + JIB
+* Docker, Docker + JIB (Google JIB Maven Plugin)
 * CI/CD - AWS - Code Commit/Code Pipeline/EC2/CaaS
 * MySQL
 * Lombok
@@ -419,8 +419,45 @@ Mount a Volume
 
 ![DockerHub credentials used by Maven to pull docker images](docker-m2%20settings.jpg)
 
+Build a Docker image and push to Docker Hub using Maven and Google Jib dependency
+
+Add this to your POM
+
+```java
+<plugin>
+    <groupId>com.google.cloud.tools</groupId>
+    <artifactId>jib-maven-plugin</artifactId>
+    <version>2.8.0</version>
+    <configuration>
+            <from>
+                <image>openjdk:latest</image>
+            </from>
+            <to>
+                <image>${image.path}/whale-jib-example</image>
+            </to>
+    </configuration>
+</plugin>
+```
+
+{image.path} is set to         
+
+```java
+<image.path>docker.io/ldeeley</image.path>
+```
 
 
+in the properties TAG of POM and it states where the Docker Repository is. The image will be pushed here.
+
+Server Authentication credentials should be setup inside the settings.xml as above
+
+```java
+leste@AQUARIUS MINGW64 /f/maventest/AlbumWhale (master)
+$ winpty docker run -it -p 9090:8080 ldeeley/whale-jib-example
+```
+
+This means the localhost port 9090 will be attached to the container Port 8080
+
+### Docker Layers
 
 
 
@@ -436,6 +473,15 @@ Mount a Volume
 
 <mark>### Maven CheatSheet</mark>
 
+Installation - download the binary zip
+Extract all from the zipfile
+Create an M2_HOME environment variable like so...
+
+![Set up Environment Variable](mvn%20env%20variable.jpg)
+
+set up the environment variable then add it to PATH
+
+![Add Maven home to PATH](add%20to%20maven%20path.jpg)
 
 
 
