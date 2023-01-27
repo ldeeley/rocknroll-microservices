@@ -320,6 +320,105 @@ bash-4.4#
 
 running a Java container interactively. Downloads first because not available locally
 
+```bash
+leste@AQUARIUS MINGW64 /
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS          PORTS     NAMES
+2c1d05fe0860   openjdk   "bash"    27 seconds ago   Up 25 seconds             dazzling_ishizaka
+
+leste@AQUARIUS MINGW64 /
+$ docker stop 2c1d05fe0860
+2c1d05fe0860
+
+leste@AQUARIUS MINGW64 /
+$
+```
+this how to stop a container...you can specify the Name also e.g.
+dazzling_ishizaka
+
+to remove a container use the rm command
+
+```bash
+$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS                      PORTS     NAMES
+ad75637dca1e   openjdk   "bash"    20 seconds ago   Up 19 seconds                         flamboyant_kapitsa
+939aea6c3364   openjdk   "bash"    39 minutes ago   Exited (0) 36 minutes ago             brave_noyce
+
+leste@AQUARIUS MINGW64 /
+$ docker rm flamboyant_kapitsa
+Error response from daemon: You cannot remove a running container ad75637dca1ef6c4f5964db452d3ec18eb43c18ff581cda366ffe273497cefe1. Stop the container before attempting removal or force remove
+
+leste@AQUARIUS MINGW64 /
+$ docker stop flamboyant_kapitsa
+flamboyant_kapitsa
+
+leste@AQUARIUS MINGW64 /
+$ docker rm flamboyant_kapitsa
+flamboyant_kapitsa
+
+leste@AQUARIUS MINGW64 /
+$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS                      PORTS     NAMES
+939aea6c3364   openjdk   "bash"    39 minutes ago   Exited (0) 37 minutes ago             brave_noyce
+
+leste@AQUARIUS MINGW64 /
+$
+```
+
+Note that Docker will not let you remove a running container. You must stop it first. (See above). This is NOT the same as removing the Image 
+
+Running MySQL as a Docker container and <mark>persisting the data after the container stops</mark>
+
+```bash
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+leste@AQUARIUS MINGW64 /
+$ docker run --name my-mysql -e MYSQL_ROOT_PASSWORD=secret -d mysql
+77a7bceec465907811cb5f1210bb6fc226a50f3f3617d2a425eee12762a904a4
+
+leste@AQUARIUS MINGW64 /
+$ winpty docker exec -it my-mysql mysql -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql>
+```
+
+
+Shows no docker containers running. Starts up a mySQL container in detatched mode and set the enviorment variable root password
+
+Log into the mySQL container in interactive mode, supplying the password
+
+List the databases
+
+Mount a directory external to the container
+
+Mount a Volume
+
+![DockerHub credentials used by Maven to pull docker images](docker-m2%20settings.jpg)
+
 
 
 
