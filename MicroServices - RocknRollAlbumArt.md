@@ -104,11 +104,87 @@ Metrics visualization suite—Where you can visualize business-related time data
 
 ## Spring Boot Starters
 
+### Release Train, BOM, Dependency Management
+
 #### WebMVC
 
 ###### Annotations
 
 #### Discovery Server/Client
+Inside the POM make sure to include the following Dependency for setting up the Netflix Eureka server.
+
+```java
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+</dependency>
+```
+The Main class should be annotated as per below so that on StartUp it is recognised as the Eureka Server
+
+```java
+@EnableEurekaServer
+@SpringBootApplication
+public class DiscoveryWhaleApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DiscoveryWhaleApplication.class, args);
+    }
+
+}
+```
+
+the application.yml file uses 8761 as the server port: - this is convention.
+Since this is the Discovery Server itself, it does not register with itself.
+
+
+
+
+```yaml
+eureka:
+  instance:
+    hostname: eurekawhale
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+server:
+  port: 8761
+spring:
+  application:
+    name: Discovery-Service
+```
+
+The Dockerfile builds an image from Java 17
+
+```dockerfile
+FROM openjdk:17
+MAINTAINER Lester <lester.deeley@yahoo.com>
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar", "app.jar"]
+```
+Building the Dockerfile. (Assuming in directory where Dockerfile and jar are present)
+
+```bash
+$ docker build --rm -t eurekawhale .
+```
+
+Creating the network for Docker to use
+
+```bash
+Docker network create rocknroll-ms
+```
+
+
+Starting the Docker container and attaching it to a network - rocknroll-ms
+
+```bash
+$ docker run --name eurekawhale -p 8080:8080 --network rocknroll-ms eurekawhale
+```
+
+
+
 
 ###### Annotations
 
