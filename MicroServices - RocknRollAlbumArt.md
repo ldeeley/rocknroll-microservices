@@ -119,7 +119,8 @@ Inside the POM make sure to include the following Dependency for setting up the 
     <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 </dependency>
 ```
-The Main class should be annotated as per below so that on StartUp it is recognised as the Eureka Server
+The Main class should be annotated as per below so that on StartUp it is recognised as the Eureka Server.
+
 
 ```java
 @EnableEurekaServer
