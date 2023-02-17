@@ -134,7 +134,7 @@ public class DiscoveryWhaleApplication {
 }
 ```
 
-the application.yml file uses 8761 as the server port: - this is convention.
+The application.yml file uses 8761 as the server port: - this is convention.
 Since this is the Discovery Server itself, it does not register with itself.
 
 
@@ -157,6 +157,12 @@ spring:
     name: Discovery-Service
 ```
 
+Some explanation - 
+A eureka 'instance' is something that both registers itself with the Eureka Server and queries the Eureka Server in order to discover other services. The 'instance' will default to the spring.application.name if it hasnt been configured.
+eureka.instance.hostname = 
+serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/ = this is where the Eureka Client will try to contact the Eureka Server. In this case, the yaml is for the Eureka Server itself (rather than as a client) so it doesnt need to register.
+      
 The Dockerfile builds an image from Java 17
 
 ```dockerfile
@@ -190,6 +196,76 @@ $ docker run --name eurekawhale -p 8080:8080 --network rocknroll-ms eurekawhale
 ###### Annotations
 
 #### Config Server
+
+Inside the POM make sure to include the following Dependency for setting up the Config Server & making it a Netflix Eureka client.
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-config-server</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+```
+The application.yml file connects to a github repo which stores configuration externally (as per the 12-factor app model)
+
+```yaml
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ldeeley/microservices-config-server.git
+          default-label: master
+  application:
+    name: config-server
+server:
+  port: 8888
+```
+Annotate the Main class to indicate to Spring that it is both a Config Server and also needs to register itself with the Eureka Server so that other Microservices can find it.
+
+```java
+@EnableConfigServer
+@EnableDiscoveryClient
+@SpringBootApplication
+public class EurekaConfigApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaConfigApplication.class, args);
+    }
+
+}
+```
+
+
+The Dockerfile builds an image from Java 17
+
+```dockerfile
+FROM openjdk:17
+MAINTAINER Lester <lester.deeley@yahoo.com>
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar", "app.jar"]
+```
+Building the Dockerfile. (Assuming in directory where Dockerfile and jar are present)
+
+```bash
+$ docker build --rm -t configwhale .
+```
+
+Creating the network for Docker to use (if not already done)
+
+```bash
+Docker network create rocknroll-ms
+```
+
+
+Starting the Docker container and attaching it to a network - rocknroll-ms
+
+```bash
+$ docker run --name configwhale -p 8080:8080 --network rocknroll-ms configwhale
+```
 
 ###### Annotations
 
@@ -228,13 +304,14 @@ The more distributed a system is, the more places it can fail.
 ### 1. Codebase
 
 The first best practice of twelve-factor apps is to track it in a version control system. Same codebase across all deploys - but can be different versions.
-This app was initial developed locally using <mark>GIT</mark>. Ultimately it will be deployed using <mark>AWS CodeCommit</mark> and a pipeline to Containers on EC2.
+This app was initial developed locally using <mark>GIT</mark> as the VCS. Ultimately it will be deployed using <mark>AWS CodeCommit</mark> and a pipeline to Containers on EC2.
+Environment specific config to be held externally to the application but also under source control.
 
-![Single code base held in VCS (GIT)](codebase.jpg)
+![Use GIT as the VCS - or AWS CodeCommit](codebase2.jpg)
 
 ### 2. Dependencies
 
-A twelve-factor app should always explicitly declare all its dependencies. We should do this using a dependency declaration manifest. Java has multiple dependency management tools like Maven and Gradle. Maven is used on this project to achieve this goal. <mark>Configured as a Multi-Module Maven project</mark> . Dependencies described in the POM.
+A twelve-factor app should always explicitly  declare all its dependencies. We should do this using a dependency declaration manifest. Java has multiple dependency management tools like Maven and Gradle. Maven is used on this project to achieve this goal. <mark>Configured as a Multi-Module Maven project</mark> . Dependencies described in the POM.
 
 ### 3. Configurations
 
@@ -560,7 +637,9 @@ set up the environment variable then add it to PATH
 
 ![Add Maven home to PATH](add%20to%20maven%20path.jpg)
 
+### Maven Multi-Module
 
+Set the Packaging in the Parent POM 
 
 
 
